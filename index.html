@@ -46,12 +46,10 @@
       transform: scale(1.05);
     }
 
-    /* Page container transitions */
     #firstPage, #secondPage {
       transition: opacity 0.8s ease, transform 0.8s ease;
     }
 
-    /* Second page container */
     .gift-container {
       display: none;
       flex-direction: column;
@@ -59,11 +57,10 @@
       animation: fadeIn 1s ease;
     }
 
-    /* Gift box image */
     .gift-box {
       width: 240px;
       height: 240px;
-      background: url(https://image.made-in-china.com/2f0j00QeMaWEvROCkl/Gift-Box-GD-GT035-.jpg) no-repeat center/contain;
+      background: url(https://img.freepik.com/premium-photo/gift-box-black-background-with-golden-ribbon-space-inscription_908985-24522.jpg) no-repeat center/contain;
       cursor: pointer;
       transition: transform 0.5s ease;
       animation: pulse 2s infinite;
@@ -75,7 +72,6 @@
       filter: drop-shadow(0 0 40px rgba(255, 255, 255, 1));
     }
 
-    /* Message box */
     .message {
       display: none;
       margin-top: 25px;
@@ -84,32 +80,39 @@
       border: 1px solid rgba(255, 63, 133, 0.5);
       border-radius: 15px;
       backdrop-filter: blur(6px);
-      font-size: 28px;
+      font-size: 22px;
       font-weight: 600;
       color: #ff3f85;
       text-shadow: 0 0 15px rgba(255,63,133,0.8);
       animation: fadeIn 1.2s ease;
+      max-width: 90%;
     }
 
-    /* Typing effect */
+    /* Fixed image size */
+    .message img {
+      margin-top: 15px;
+      width: 300px;   /* normal fixed width */
+      height: auto;   /* keeps proportions */
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(255, 63, 133, 0.6);
+    }
+
     .typing {
       border-right: 3px solid #ff3f85;
       white-space: nowrap;
       overflow: hidden;
       width: 0;
-      animation: typing 2.5s steps(20, end) forwards, blink 0.7s infinite;
+      display: inline-block;
+      animation: typing 2.5s steps(25, end) forwards, blink 0.7s infinite;
     }
 
-    @keyframes typing {
-      from { width: 0 }
-      to { width: 100% }
-    }
+    @keyframes typing { from { width: 0 } to { width: 100% } }
+    @keyframes blink { 50% { border-color: transparent } }
+    @keyframes floatUp { from { transform: translateY(0); opacity: 1; } to { transform: translateY(-800px); opacity: 0; } }
+    @keyframes fall { to { transform: translateY(100vh) rotate(720deg); opacity: 0; } }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
 
-    @keyframes blink {
-      50% { border-color: transparent }
-    }
-
-    /* Floating particles */
     .particle {
       position: absolute;
       width: 6px;
@@ -120,37 +123,12 @@
       z-index: -1;
     }
 
-    @keyframes floatUp {
-      from { transform: translateY(0); opacity: 1; }
-      to { transform: translateY(-800px); opacity: 0; }
-    }
-
-    /* Confetti */
     .confetti {
       position: absolute;
       width: 10px;
       height: 20px;
-      background: red;
       top: -20px;
       animation: fall 3s linear forwards;
-    }
-
-    @keyframes fall {
-      to {
-        transform: translateY(100vh) rotate(720deg);
-        opacity: 0;
-      }
-    }
-
-    /* Animations */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
     }
   </style>
 </head>
@@ -158,15 +136,19 @@
 
   <!-- First Page -->
   <div id="firstPage">
-    <h1>May surprise ako</h1>
+    <h1>May Surprise Ako </h1>
     <button onclick="showGift()">Next</button>
   </div>
 
   <!-- Second Page -->
   <div id="secondPage" class="gift-container">
-    <h1>Touch the gift </h1>
+    <h1>Pindotin mo yung gift </h1>
     <div class="gift-box" onclick="showMessage()"></div>
-    <div class="message" id="giftMessage"><span class="typing">Fuck you<br><br>Taenamo</span></div>
+    <div class="message" id="giftMessage">
+      <span class="typing"> SORPRAYS! KUPAL KABA BOSS? GALINGAN MO PALAGI LABYO   </span>
+      <br>
+      <img src="https://static.displate.com/857x1200/displate/2020-12-05/9358dc2dce553115ef1668c61153b700_ec6590eaf10f8519b8d29be71ff563df.jpg" alt="Surprise Image">
+    </div>
   </div>
 
   <script>
@@ -188,15 +170,8 @@
       box.classList.add("open");
       message.style.display = "block";
 
-      // particles
-      for (let i = 0; i < 40; i++) {
-        createParticle();
-      }
-
-      // confetti burst
-      for (let i = 0; i < 30; i++) {
-        createConfetti();
-      }
+      for (let i = 0; i < 40; i++) createParticle();
+      for (let i = 0; i < 30; i++) createConfetti();
     }
 
     function createParticle() {
