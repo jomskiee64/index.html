@@ -1,398 +1,223 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Jomel Guzman - My Portfolio</title>
-
-
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-
- 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Surprise Gift</title>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      scroll-behavior: smooth;
-    }
-
     body {
-      font-family: 'Roboto', sans-serif;
-      background-color: #f4f4f4;
-      color: #333;
-      line-height: 1.6;
-    }
-
-    .resume-wrapper {
-      max-width: 1200px;
-      margin: 30px auto;
+      font-family: 'Poppins', sans-serif;
+      text-align: center;
+      background: linear-gradient(135deg, #0f0f1e, #1a1a2e);
+      height: 100vh;
+      margin: 0;
       display: flex;
-      flex-wrap: wrap;
-      background: #fff;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-      border-radius: 10px;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
       overflow: hidden;
-      animation: fadeInWrapper 0.8s ease-out;
+      color: #fff;
     }
 
-    @keyframes fadeInWrapper {
+    h1 {
+      font-size: 32px;
+      font-weight: 600;
+      margin-bottom: 30px;
+      color: #f0f0f0;
+      text-shadow: 0 0 20px rgba(255,255,255,0.2);
+      animation: fadeIn 1s ease;
+    }
+
+    button {
+      padding: 12px 30px;
+      font-size: 18px;
+      border: 2px solid #ff3f85;
+      border-radius: 12px;
+      background: transparent;
+      color: #ff3f85;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 0 15px rgba(255, 63, 133, 0.4);
+    }
+
+    button:hover {
+      background: #ff3f85;
+      color: #fff;
+      transform: scale(1.05);
+    }
+
+    /* Page container transitions */
+    #firstPage, #secondPage {
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    /* Second page container */
+    .gift-container {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      animation: fadeIn 1s ease;
+    }
+
+    /* Gift box image */
+    .gift-box {
+      width: 240px;
+      height: 240px;
+      background: url(https://image.made-in-china.com/2f0j00QeMaWEvROCkl/Gift-Box-GD-GT035-.jpg) no-repeat center/contain;
+      cursor: pointer;
+      transition: transform 0.5s ease;
+      animation: pulse 2s infinite;
+      filter: drop-shadow(0 0 20px rgba(255, 63, 133, 0.8));
+    }
+
+    .gift-box.open {
+      transform: rotateX(20deg) scale(1.2);
+      filter: drop-shadow(0 0 40px rgba(255, 255, 255, 1));
+    }
+
+    /* Message box */
+    .message {
+      display: none;
+      margin-top: 25px;
+      padding: 25px 35px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 63, 133, 0.5);
+      border-radius: 15px;
+      backdrop-filter: blur(6px);
+      font-size: 28px;
+      font-weight: 600;
+      color: #ff3f85;
+      text-shadow: 0 0 15px rgba(255,63,133,0.8);
+      animation: fadeIn 1.2s ease;
+    }
+
+    /* Typing effect */
+    .typing {
+      border-right: 3px solid #ff3f85;
+      white-space: nowrap;
+      overflow: hidden;
+      width: 0;
+      animation: typing 2.5s steps(20, end) forwards, blink 0.7s infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent }
+    }
+
+    /* Floating particles */
+    .particle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255, 63, 133, 0.8);
+      animation: floatUp 6s linear infinite;
+      z-index: -1;
+    }
+
+    @keyframes floatUp {
+      from { transform: translateY(0); opacity: 1; }
+      to { transform: translateY(-800px); opacity: 0; }
+    }
+
+    /* Confetti */
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 20px;
+      background: red;
+      top: -20px;
+      animation: fall 3s linear forwards;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+      }
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Sidebar */
-    .sidebar {
-      background: linear-gradient(180deg, #2f3542, #1e272e);
-      color: #fff;
-      width: 300px;
-      padding: 30px;
-      flex-shrink: 0;
-      text-align: center;
-    }
-
-    .sidebar img {
-      width: 150px;
-      height: 150px;
-      object-fit: cover;
-      border-radius: 50%;
-      border: 4px solid #fff;
-      cursor: pointer;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .sidebar img:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 15px rgba(255,255,255,0.3);
-    }
-
-    .sidebar h2 {
-      margin-top: 15px;
-      font-size: 22px;
-    }
-
-    .sidebar p {
-      font-size: 14px;
-      color: #ccc;
-    }
-
-    .sidebar nav {
-      margin-top: 30px;
-    }
-
-    .sidebar nav a {
-      display: flex;
-      align-items: center;
-      color: #ccc;
-      text-decoration: none;
-      padding: 10px;
-      border-radius: 5px;
-      margin-bottom: 10px;
-      transition: background 0.3s, transform 0.2s;
-    }
-
-    .sidebar nav a i {
-      margin-right: 10px;
-      width: 20px;
-      text-align: center;
-    }
-
-    .sidebar nav a:hover {
-      background-color: #57606f;
-      color: #fff;
-      transform: translateX(5px);
-    }
-
-    .contact-info {
-      margin-top: 30px;
-      font-size: 14px;
-    }
-
-    .contact-info i {
-      width: 20px;
-      color: #1e90ff;
-    }
-
-    .social-links a {
-      display: inline-block;
-      margin: 10px 5px 0 0;
-      color: #fff;
-      font-size: 18px;
-      transition: color 0.3s, transform 0.2s;
-    }
-
-    .social-links a:hover {
-      color: #1e90ff;
-      transform: scale(1.1);
-    }
-
-    /* Main Content */
-    .main {
-      flex: 1;
-      padding: 40px;
-    }
-
-    .main section {
-      margin-bottom: 30px;
-      padding: 20px;
-      background: #ffffff;
-      border-radius: 10px;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      border-bottom: 2px solid #e0e0e0;
-    }
-
-    .main section:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 15px rgba(0,0,0,0.12);
-    }
-
-    .main section:last-of-type {
-      border-bottom: none;
-    }
-
-    .main h1 {
-      font-size: 36px;
-      margin-bottom: 5px;
-    }
-
-    .main h2 {
-      font-size: 20px;
-      color: #1e90ff;
-      margin-bottom: 15px;
-      text-transform: uppercase;
-    }
-
-    .main p, .main ul {
-      font-size: 16px;
-    }
-
-    ul {
-      list-style-type: disc;
-      padding-left: 20px;
-    }
-
-    ul li {
-      margin-bottom: 8px;
-    }
-
-    footer {
-      text-align: center;
-      padding: 20px;
-      background-color: #2f3542;
-      color: #ccc;
-      margin-top: 30px;
-      font-size: 14px;
-    }
-
-    @media (max-width: 768px) {
-      .resume-wrapper {
-        flex-direction: column;
-      }
-
-      .sidebar {
-        width: 100%;
-        text-align: center;
-      }
-
-      .main {
-        padding: 20px;
-      }
-
-      .sidebar nav a {
-        justify-content: center;
-      }
-    }
-
-    /* Highlight Animation */
-    .highlight {
-      animation: highlightSection 1s ease-out;
-      border-left: 5px solid #1e90ff;
-      background-color: #e8f4ff !important;
-      box-shadow: 0 0 10px rgba(30, 144, 255, 0.2);
-    }
-
-    @keyframes highlightSection {
-      0% {
-        background-color: #cce9ff;
-        transform: scale(1.01);
-        box-shadow: 0 0 20px rgba(30, 144, 255, 0.3);
-      }
-      100% {
-        background-color: #fff;
-        transform: scale(1);
-        box-shadow: none;
-      }
-    }
-
-    /* Zoom overlay */
-    .image-zoom-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.8);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 999;
-    }
-
-    .image-zoom-overlay img {
-      max-width: 90%;
-      max-height: 90%;
-      border-radius: 10px;
-      box-shadow: 0 0 20px rgba(255,255,255,0.5);
-      transition: transform 0.3s ease;
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
     }
   </style>
 </head>
 <body>
 
-  <div class="resume-wrapper">
-
-
-    <aside class="sidebar">
-      <img src="jomel.JPG" alt="Jomel Guzman" id="profileImage" />
-      <h2>Jomel Guzman</h2>
-      <p>Good Student | My Personal Information </p>
-
-      <nav>
-        <a href="#about"><i class="fas fa-user"></i>About Me</a>
-        <a href="#hobbies"><i class="fas fa-heart"></i>Hobbies</a>
-        <a href="#background"><i class="fas fa-briefcase"></i>Background</a>
-        <a href="#skills"><i class="fas fa-lightbulb"></i>Skills</a>
-        <a href="#projects"><i class="fas fa-code"></i>Projects</a>
-        <a href="#education"><i class="fas fa-graduation-cap"></i>Education</a>
-        <a href="#achievements"><i class="fas fa-trophy"></i>Achievements</a>
-        <a href="#contact"><i class="fas fa-envelope"></i>Contact</a>
-      </nav>
-
-      <div class="contact-info">
-        <p><i class="fas fa-envelope"></i> guzmanjomel0@email.com</p>
-        <p><i class="fas fa-phone"></i> 0907-134-2294</p>
-      </div>
-
-      <div class="social-links">
-        <a href="https://www.facebook.com/joms.rawet.uki/" target="_blank"><i class="fab fa-facebook-f"></i></a>
-        <a href="https://www.instagram.com/solstice_joms/" target="_blank"><i class="fab fa-instagram"></i></a>
-        <a href="https://github.com/jomskiee64" target="_blank"><i class="fab fa-github"></i></a>
-      </div>
-    </aside>
-
-
-    <main class="main">
-      <section id="about">
-        <h1>About Me</h1>
-        <p>Hello! My name is <strong>Jomel Onido</strong>. And i'm 18years old, i lived in Rimos 2, Luna, La Union. I’m a motivated individual who believes in the power of growth and continuous learning. I am always looking to challenge myself physically and mentally, striving to be better every day.</p>
-      </section>
-
-      <section id="hobbies">
-        <h2>Hobbies</h2>
-        <ul>
-          <li>Going to the Gym</li>
-          <li>Walking and Outdoor Activities</li>
-          <li>Eating</li>
-          <li>Sleeping</li>
-        </ul>
-      </section>
-
-      <section id="background">
-        <h2>Background</h2>
-        <p>I come from a hardworking and supportive background. My upbringing has instilled values such as discipline, resilience, and the importance of integrity. I am eager to take on new opportunities that help me grow and contribute meaningfully.</p>
-      </section>
-
-      <section id="skills">
-        <h2>Skils</h2>
-        <ul>
-          <li>Cooking</li>
-          <li>Washing Dishes</li>
-          <li>Cleaning</li>
-          <li>Sleeping</li>
-        </ul>
-      </section>
-
-      <section id="projects">
-        <h2>Status</h2>
-        <ul>
-          <li>Minsan single</li>
-          <li>Kadalasan single</li>
-        </ul>
-      </section>
-
-      <section id="education">
-        <h2>Education</h2>
-        <ul>
-         <li><p> Bagumbahay Elementary School <p/></li>
-         <li><p> Luna National High School - JHS <p/></li>
-         <li><p> Luna National High School - SHS <p/></li>
-         <li><p> BS Information Technology - Ongoing</p></li>
-       </ul>
-      </section>
-
-      <section id="achievements">
-        <h2>Achievements</h2>
-        <ul>
-          <li> I won a argument with my girlfriend - 2024</li>
-          
-        </ul>
-      </section>
-
-      <section id="contact">
-        <h2>Contact</h2>
-        <p><strong>Email:</strong> guzmanjomel0@email.com</p>
-        <p><strong>Phone:</strong> 0907-134-2294 - Smart/ TNT</p>
-        <p><strong>Phone:</strong> 0948-668-5871 - Globe</p>
-      </section>
-    </main>
+  <!-- First Page -->
+  <div id="firstPage">
+    <h1>May surprise ako</h1>
+    <button onclick="showGift()">Next</button>
   </div>
 
-  <!-- Zoom Overlay -->
-  <div class="image-zoom-overlay" id="zoomOverlay">
-    <img src="jomel.JPG" alt="Zoomed Jomel" />
+  <!-- Second Page -->
+  <div id="secondPage" class="gift-container">
+    <h1>Touch the gift </h1>
+    <div class="gift-box" onclick="showMessage()"></div>
+    <div class="message" id="giftMessage"><span class="typing">Fuck you<br><br>Taenamo</span></div>
   </div>
 
   <script>
-  
-    document.querySelectorAll('.sidebar nav a').forEach(link => {
-      link.addEventListener('click', function (e) {
-        e.preventDefault();
+    function showGift() {
+      const first = document.getElementById("firstPage");
+      const second = document.getElementById("secondPage");
+      first.style.opacity = "0";
+      first.style.transform = "scale(0.9)";
+      setTimeout(() => {
+        first.style.display = "none";
+        second.style.display = "flex";
+        second.style.opacity = "1";
+      }, 800);
+    }
 
-        const targetId = this.getAttribute('href').substring(1);
-        const targetSection = document.getElementById(targetId);
+    function showMessage() {
+      const box = document.querySelector(".gift-box");
+      const message = document.getElementById("giftMessage");
+      box.classList.add("open");
+      message.style.display = "block";
 
-        if (!targetSection) return;
+      // particles
+      for (let i = 0; i < 40; i++) {
+        createParticle();
+      }
 
-        targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // confetti burst
+      for (let i = 0; i < 30; i++) {
+        createConfetti();
+      }
+    }
 
-        setTimeout(() => {
-          document.querySelectorAll('main section').forEach(sec => {
-            sec.classList.remove('highlight');
-          });
+    function createParticle() {
+      const particle = document.createElement("div");
+      particle.classList.add("particle");
+      particle.style.left = Math.random() * window.innerWidth + "px";
+      particle.style.bottom = Math.random() * window.innerHeight/2 + "px";
+      particle.style.animationDuration = (4 + Math.random() * 3) + "s";
+      document.body.appendChild(particle);
+      setTimeout(() => particle.remove(), 6000);
+    }
 
-          targetSection.classList.add('highlight');
-
-          setTimeout(() => {
-            targetSection.classList.remove('highlight');
-          }, 500);
-        }, 500);
-      });
-    });
-
-  
-    const profileImage = document.getElementById("profileImage");
-    const zoomOverlay = document.getElementById("zoomOverlay");
-
-    profileImage.addEventListener("click", () => {
-      zoomOverlay.style.display = "flex";
-    });
-
-    zoomOverlay.addEventListener("click", () => {
-      zoomOverlay.style.display = "none";
-    });
+    function createConfetti() {
+      const confetti = document.createElement("div");
+      confetti.classList.add("confetti");
+      confetti.style.left = Math.random() * window.innerWidth + "px";
+      confetti.style.background = `hsl(${Math.random()*360}, 100%, 50%)`;
+      confetti.style.animationDuration = (2 + Math.random() * 2) + "s";
+      document.body.appendChild(confetti);
+      setTimeout(() => confetti.remove(), 3000);
+    }
   </script>
 
 </body>
